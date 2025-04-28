@@ -16,6 +16,12 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         </Link>
       </nav>
       {children}
+      <footer className="flex justify-center items-center gap-2">
+        <p>
+          Developed by{" "}
+          <span className="text-primary font-semibold">Deniz Gökbudak</span>
+        </p>
+      </footer>
     </div>
   );
 };
