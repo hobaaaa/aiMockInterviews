@@ -69,16 +69,25 @@ export async function createFeedback(params: CreateFeedbackParams) {
         structuredOutputs: false,
       }),
       schema: feedbackSchema,
-      prompt: `You are an AI interviewer analyzing a mock interview. Your task is to evaluate the candidate based on structured categories. Be thorough and detailed in your analysis. Don't be lenient with the candidate. If there are mistakes or areas for improvement, point them out.
-        Transcript:
-        ${formattedTranscript}
+      prompt: `You are an extremely strict professional interviewer analyzing a candidate's interview.
 
-        Please score the candidate from 0 to 100 in the following areas. Do not add categories other than the ones provided:
-        - **Communication Skills**: Clarity, articulation, structured responses.
-        - **Technical Knowledge**: Understanding of key concepts for the role.
-        - **Problem-Solving**: Ability to analyze problems and propose solutions.
-        - **Cultural & Role Fit**: Alignment with company values and job role.
-        - **Confidence & Clarity**: Confidence in responses, engagement, and clarity.
+          Rules:
+          - If the candidate provides irrelevant, short, incomplete, or meaningless answers (such as "I don't know", "I'm not sure", one-word answers), you must severely penalize the scores. Give 0–30 points.
+          - Only award scores above 60 if the answers demonstrate deep knowledge, structured thinking, and strong communication.
+          - Never assume positive intent. Always evaluate critically and harshly.
+          - If the answers are bad, explicitly list them as areas for improvement.
+          - Only list strengths if they are explicitly evident.
+          
+          Scoring Guide:
+          - 0–30: Very poor
+          - 31–60: Weak, lacks depth
+          - 61–80: Decent, good effort
+          - 81–100: Strong, excellent answers
+          
+          Base your evaluation ONLY on the transcript provided. No assumptions allowed.
+          
+          Transcript:
+          ${formattedTranscript}
         `,
       system:
         "You are a professional interviewer analyzing a mock interview. Your task is to evaluate the candidate based on structured categories",
